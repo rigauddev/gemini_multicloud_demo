@@ -1,0 +1,27 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gemini Multicloud Demo</title>
+</head>
+<body>
+  <h1>Gemini Multicloud</h1>
+  <input id="prompt" placeholder="Digite sua pergunta" />
+  <button onclick="enviar()">Enviar</button>
+  <pre id="resposta"></pre>
+
+  <script>
+    async function enviar() {
+      const prompt = document.getElementById("prompt").value;
+      const res = await fetch("https://minha-function.azurewebsites.net/api/chat", {
+        method: "POST",
+        body: JSON.stringify({ prompt }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      document.getElementById("resposta").innerText = data.response || "Erro ou sem resposta";
+    }
+  </script>
+</body>
+</html>
